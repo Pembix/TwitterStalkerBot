@@ -1,0 +1,27 @@
+CREATE TABLE `telegram_user` (
+  `id` bigint(20) unsigned NOT NULL,
+  `language` varchar(10) DEFAULT NULL,
+  `access_key` varchar(150) DEFAULT NULL,
+  `access_secret` varchar(150) DEFAULT NULL,
+  `action` varchar(20) DEFAULT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `telegram_twitter_relation` (
+  `telegram_user_id` bigint(20) unsigned NOT NULL,
+  `twitter_user_id` bigint(20) unsigned NOT NULL,
+  `type` varchar(18) NOT NULL,
+  PRIMARY KEY (`telegram_user_id`,`twitter_user_id`,`type`),
+  CONSTRAINT `FK_telegram_user` FOREIGN KEY (`telegram_user_id`) REFERENCES `telegram_user` (`id`)
+);
+
+CREATE TABLE `tweet` (
+  `id` bigint(20) unsigned NOT NULL,
+  `created` bigint(20) unsigned DEFAULT NULL,
+  `text` varchar(500) DEFAULT NULL,
+  `twitter_user_id` bigint(20) unsigned NOT NULL,
+  `username` varchar(150) DEFAULT NULL,
+  `screenname` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
